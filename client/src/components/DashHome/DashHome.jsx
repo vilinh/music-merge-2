@@ -1,4 +1,5 @@
 import React from "react";
+import { SongsPreview } from "../SongsPreview/SongsPreview";
 import "./dashHome.css";
 
 export const DashHome = () => {
@@ -12,7 +13,10 @@ export const DashHome = () => {
       </div>
       <div className="body">
         <div className="left-panel">
-            
+          <SongsPreview
+            className="songsPreview"
+            playlistId={"37i9dQZEVXbMDoHDwVN2tF"}
+          ></SongsPreview>
         </div>
       </div>
     </div>

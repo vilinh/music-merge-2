@@ -27,3 +27,18 @@ export const getSpotifyTokens = async () => {
   // }
   return accessToken;
 };
+
+const base = axios.create({
+  baseURL: "https://api.spotify.com/v1",
+});
+base.defaults.headers["Content-Type"] = "application/json";
+
+export const getPlaylist = async (playlistId) => {
+  const accessToken = await getSpotifyTokens();
+  console.log(accessToken)
+  return base.get(`/playlists/${playlistId}`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
