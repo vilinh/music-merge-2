@@ -67,7 +67,8 @@ router.post("/login", async (req, res, next) => {
         new CustomError("User does not exist or password does not match.")
       );
     } else {
-      App.locals.userId = user._id;
+      App.locals.userId = user.id;
+      console.log(App.locals.userId);
       const accessToken = jwtToken.sign({ id: user._id }, process.env.JWT);
       res.json({ accessToken, userId: user.id });
     }
@@ -93,7 +94,7 @@ router.get("/callback", (req, res, next) => {
   axios
     .post("https://accounts.spotify.com/api/token", data, { headers })
     .then((res) => {
-      if (res.status === 200) {
+      if (res.status == 200) {
         const { access_token, refresh_token, expires_in } = res.data;
 
         const storeTokens = async () => {
@@ -103,6 +104,7 @@ router.get("/callback", (req, res, next) => {
             const spotifyId = profile.data.id;
 
             App.locals.spotifyId = spotifyId;
+            console.log(userId, spotifyId)
 
             const found = await SpotifyAcc.findOne({ userId, spotifyId });
             if (found) {
@@ -117,6 +119,8 @@ router.get("/callback", (req, res, next) => {
               );
             } else {
               const newSpotifyAcc = new SpotifyAcc({
+                userId: userId,
+                spotifyId: spotifyId,
                 accessToken: access_token,
                 refreshToken: refresh_token,
                 expiresIn: expires_in,
@@ -124,14 +128,13 @@ router.get("/callback", (req, res, next) => {
               });
               await newSpotifyAcc.save();
             }
-
-            res.redirect(process.env.CLIENT_BASE_URL);
           } catch (err) {
             next(err);
           }
-
-          storeTokens();
         };
+
+        storeTokens();
+        res.redirect(process.env.CLIENT_BASE_URL);
       } else {
         res.redirect(
           `/?${querystring.stringify({
@@ -139,8 +142,9 @@ router.get("/callback", (req, res, next) => {
           })}`
         );
       }
-    }).catch(() => {
-      res.redirect(process.env.CLIENT_BASE_URL)
+    })
+    .catch(() => {
+      res.redirect(process.env.CLIENT_BASE_URL);
     });
 });
 
@@ -170,7 +174,7 @@ router.get("/tokens", jwt.verifyJWT, async (req, res, next) => {
   try {
     const userId = req.userId;
     const tokens = await SpotifyAcc.findOne({ userId });
-    console.log(tokens)
+    console.log(tokens);
     res.status(200).json(tokens);
   } catch (err) {
     next(err);

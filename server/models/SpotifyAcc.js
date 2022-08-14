@@ -1,8 +1,12 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const SpotifyAccSchema = new mongoose.Schema(
   {
     userId: {
+      type: String,
+      required: true,
+    },
+    spotifyId: {
       type: String,
       required: true,
     },
@@ -30,5 +34,4 @@ const SpotifyAccSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('SpotifyAcc', SpotifyAccSchema)
-
+module.exports = mongoose.model("SpotifyAcc", SpotifyAccSchema);
