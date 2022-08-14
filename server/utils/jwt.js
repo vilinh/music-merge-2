@@ -5,9 +5,9 @@ const verifyJWT = (req, res, next) => {
   if (!token) {
     res.send('We need a token')
   } else {
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    jwt.verify(token, process.env.JWT, (err, user) => {
       if (err) {
-        res.status(401).send()
+        res.status(401).send(err)
       } else {
         req.userId = user.id
         next()

@@ -1,16 +1,22 @@
 import React, { useEffect } from "react";
+import { useCallback } from "react";
 import { useState } from "react";
-import { getSpotifyAccessTokens } from "../../utils/spotify";
+import { getSpotifyTokens } from "../../utils/spotify";
 import { DashHome } from "../DashHome/DashHome";
 import { Nav } from "../Nav/Nav";
 import "./dashBoard.css";
+import axios from "axios";
 
 export const Dashboard = () => {
   const [activeView, setActiveView] = useState("home");
   const [spotifyToken, setSpotifyToken] = useState(null);
 
   useEffect(() => {
-    console.log("hello");
+    const getSpotifyToken = async () => {
+      const token = await getSpotifyTokens();
+      setSpotifyToken(token)
+    };
+    getSpotifyToken()
   }, []);
 
   return (

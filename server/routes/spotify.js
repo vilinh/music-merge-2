@@ -68,7 +68,6 @@ router.post("/login", async (req, res, next) => {
       );
     } else {
       App.locals.userId = user.id;
-      console.log(App.locals.userId);
       const accessToken = jwtToken.sign({ id: user._id }, process.env.JWT);
       res.json({ accessToken, userId: user.id });
     }
@@ -104,7 +103,6 @@ router.get("/callback", (req, res, next) => {
             const spotifyId = profile.data.id;
 
             App.locals.spotifyId = spotifyId;
-            console.log(userId, spotifyId)
 
             const found = await SpotifyAcc.findOne({ userId, spotifyId });
             if (found) {
@@ -177,6 +175,7 @@ router.get("/tokens", jwt.verifyJWT, async (req, res, next) => {
     console.log(tokens);
     res.status(200).json(tokens);
   } catch (err) {
+    res.send(err);
     next(err);
   }
 });

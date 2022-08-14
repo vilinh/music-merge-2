@@ -14,14 +14,16 @@ const refreshTokens = async (refreshToken) => {
   window.location.reload();
 };
 
-export const getSpotifyAccessTokens = async () => {
+export const getSpotifyTokens = async () => {
   const { data } = await axios.get("/spotify/tokens", {
-    "x-access-token": localStorage.getItem("token"),
+    headers: {
+      "x-access-token": localStorage.getItem("token"),
+    },
   });
   const { accessToken, refreshToken, expiresIn, timeStamp } = data;
-  
-  if (hasTokenExpired(timeStamp, expiresIn) || !accessToken) {
-    await refreshTokens(refreshToken);
-  }
+
+  // if (hasTokenExpired(timeStamp, expiresIn) || !accessToken) {
+  //   await refreshTokens(refreshToken);
+  // }
   return accessToken;
 };
