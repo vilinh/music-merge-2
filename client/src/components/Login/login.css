@@ -1,0 +1,29 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80vh;
+  justify-content: center;
+  gap: 20px;
+}
+
+.login > h2 {
+  font-weight: 400;
+}
+
+.login > input {
+  border: 1px solid var(--light-border);
+  padding: 15px;
+  border-radius: 5px;
+  width: 200px;
+}
+
+.login > button {
+  background-color: var(--txt-med);
+  border: none;
+  color: var(--white);
+  padding: 10px 20px;
+  border-radius: 5px;
+  width: 200px;
+  cursor: pointer;
+}
