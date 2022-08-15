@@ -6,6 +6,7 @@ import { DashHome } from "../DashHome/DashHome";
 import { Nav } from "../Nav/Nav";
 import "./dashBoard.css";
 import axios from "axios";
+import { DashBrowse } from "../DashBrowse/DashBrowse";
 
 export const Dashboard = () => {
   const [activeView, setActiveView] = useState("home");
@@ -29,6 +30,7 @@ export const Dashboard = () => {
             </div>
             <div className="dashboard-right">
               {activeView === "home" ? <DashHome /> : <></>}
+              {activeView === "browse" ? <DashBrowse /> : <></>}
             </div>
           </div>
         </>
