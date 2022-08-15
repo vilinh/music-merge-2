@@ -4,13 +4,22 @@ import { SongCard } from "../SongCard/SongCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { getPlaylist } from "../../utils/spotify";
+import './songsPreview.css';
 
 export const SongsPreview = ({ playlistId }) => {
-  const [playlist, setPlaylist] = useState();
+  const [tracks, setTracks] = useState([]);
+  const [playlist, setPlaylist] = useState([]);
 
   useEffect(() => {
-    
-  }, []);
+    console.log(playlistId)
+    const getPlaylistData = async (playlistId) => {
+      const playlistData = await getPlaylist(playlistId)
+      console.log(playlistData.data.tracks.items.slice(0,5))
+      setPlaylist(playlistData.data)
+      setTracks(playlistData.data.tracks.items.slice(0,5))
+    }
+    getPlaylistData(playlistId)
+  }, [playlistId]);
 
   return (
     <div className="songsPreview">
@@ -21,10 +30,8 @@ export const SongsPreview = ({ playlistId }) => {
             <span>See All</span>
           </div>
           <div className="songs">
-            {playlist &&
-              playlist.tracks.items
-                .slice(0, 5)
-                .map((item) => (
+            {tracks &&
+                tracks.map((item) => (
                   <SongCard key={item.track.name} song={item.track} />
                 ))}
           </div>

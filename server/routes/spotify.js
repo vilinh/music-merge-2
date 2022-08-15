@@ -148,23 +148,25 @@ router.get("/callback", (req, res, next) => {
 
 router.get("/refresh_token", (req, res) => {
   const { refresh_token } = req.query;
-  const data = querystring.stringify({
-    grant_type: "refresh_token",
-    refresh_token,
-  });
-  const headers = {
-    "content-type": "application/x-www-form-urlencoded",
-    Authorization: `Basic ${new Buffer.from(
-      `${CLIENT_ID}:${CLIENT_SECRET}`
-    ).toString("base64")}`,
-  };
-  axios
-    .post("https://accounts.spotify.com/api/token", data, { headers })
+  axios({
+    method: "post",
+    url: "https://accounts.spotify.com/api/token",
+    data: querystring.stringify({
+      grant_type: "refresh_token",
+      refresh_token: refresh_token,
+    }),
+    headers: {
+      "content-type": "application/x-www-form-urlencoded",
+      Authorization: `Basic ${new Buffer.from(
+        `${CLIENT_ID}:${CLIENT_SECRET}`
+      ).toString("base64")}`,
+    },
+  })
     .then((response) => {
       res.send(response.data);
     })
-    .catch((err) => {
-      res.send(err);
+    .catch((error) => {
+      res.send(error);
     });
 });
 
@@ -172,7 +174,6 @@ router.get("/tokens", jwt.verifyJWT, async (req, res, next) => {
   try {
     const userId = req.userId;
     const tokens = await SpotifyAcc.findOne({ userId });
-    console.log(tokens);
     res.status(200).json(tokens);
   } catch (err) {
     res.send(err);
@@ -194,4 +195,14 @@ router.post("/tokens", jwt.verifyJWT, async (req, res, next) => {
     next(error);
   }
 });
+
+router.delete("/tokens", jwt.verifyJWT, async (req, res, next) => {
+  try {
+    const userId = req.userId;
+    await SpotifyAcc.findOneAndDelete({userId})
+    res.status(200).json("deleted");
+  } catch (err) {
+    next(err)
+  }
+})
 module.exports = router;

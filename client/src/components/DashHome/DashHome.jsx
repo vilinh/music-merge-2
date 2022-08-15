@@ -15,7 +15,7 @@ export const DashHome = () => {
         <div className="left-panel">
           <SongsPreview
             className="songsPreview"
-            playlistId={"37i9dQZEVXbMDoHDwVN2tF"}
+            playlistId={"37i9dQZF1DWWvmOXYvR5a6"}
           ></SongsPreview>
         </div>
       </div>

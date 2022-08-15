@@ -1,17 +1,30 @@
 import axios from "axios";
 
-const hasTokenExpired = (timeStamp, expiresIn) => {
-  const time = new Date(timeStamp);
-  const timeElapsed = Date.now() - time.getTime();
-  return timeElapsed / 1000 > Number(expiresIn);
+const tokenExpired = (timeStamp, expiresIn) => {
+  const millisecondsElapsed = Date.now() - Date.parse(timeStamp);
+  return (millisecondsElapsed / 1000) > Number(expiresIn);
 };
 
 const refreshTokens = async (refreshToken) => {
   const { data } = await axios.get(
     `/spotify/refresh_token?refresh_token=${refreshToken}`
   );
+  
+  console.log(data)
+  // window.location.reload();
+};
 
-  window.location.reload();
+export const removeSpotifyTokens = async () => {
+  await axios
+    .delete("/spotify/tokens", {
+      headers: {
+        "x-access-token": localStorage.getItem("token"),
+      },
+    })
+    .then((res) => {
+      console.log("deleted");
+    })
+    .catch((err) => console.log(err));
 };
 
 export const getSpotifyTokens = async () => {
@@ -22,9 +35,11 @@ export const getSpotifyTokens = async () => {
   });
   const { accessToken, refreshToken, expiresIn, timeStamp } = data;
 
-  // if (hasTokenExpired(timeStamp, expiresIn) || !accessToken) {
-  //   await refreshTokens(refreshToken);
-  // }
+  console.log(refreshToken)
+
+  if (tokenExpired(timeStamp, expiresIn) || !accessToken) {
+    await refreshTokens(refreshToken);
+  }
   return accessToken;
 };
 
@@ -35,7 +50,8 @@ base.defaults.headers["Content-Type"] = "application/json";
 
 export const getPlaylist = async (playlistId) => {
   const accessToken = await getSpotifyTokens();
-  console.log(accessToken)
+
+  console.log(accessToken);
   return base.get(`/playlists/${playlistId}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
