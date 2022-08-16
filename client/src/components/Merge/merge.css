@@ -1,0 +1,70 @@
+.merge {
+    padding: 30px;
+    height: 100vh;
+    color: var(--txt-dark);
+  }
+  
+  .merge h3 {
+    margin-bottom: 20px;
+  }
+  
+  .merge .search {
+    padding: 10px 15px;
+    font-size: 0.9em;
+    border-radius: 5px;
+    color: var(--white);
+    border: none;
+    background-color: orange;
+    cursor: pointer;
+  }
+  
+  .merge .search:hover {
+    filter: brightness(0.95);
+  }
+  
+  .merge .disabled {
+    cursor: not-allowed;
+  }
+  
+  .spotifyResults {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-height: 77vh;
+    overflow: auto;
+  }
+  
+  .merge-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .merge input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--light-border);
+    width: 50%;
+  }
+  
+  .merge p {
+    color: var(--txt-med);
+    font-size: .9em;
+  }
+  
+  .merge .addToSpotify {
+    font-size: .9em;
+    background-color: var(--txt-dark);
+    color: var(--white);
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  
+  .merge .addtoSpotify .disabled {
+    cursor: not-allowed;
+  }
+  
+  .merge .addToSpotify:hover {
+    filter: brightness(.9);
+  }

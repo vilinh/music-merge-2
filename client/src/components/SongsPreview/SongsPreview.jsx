@@ -11,10 +11,8 @@ export const SongsPreview = ({ playlistId }) => {
   const [playlist, setPlaylist] = useState([]);
 
   useEffect(() => {
-    console.log(playlistId)
     const getPlaylistData = async (playlistId) => {
       const playlistData = await getPlaylist(playlistId)
-      console.log(playlistData.data.tracks.items.slice(0,5))
       setPlaylist(playlistData.data)
       setTracks(playlistData.data.tracks.items.slice(0,5))
     }

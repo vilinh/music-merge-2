@@ -148,7 +148,6 @@ router.get("/callback", (req, res, next) => {
 
 router.get("/refresh_token", (req, res) => {
   const { refresh_token } = req.query;
-  console.log(refresh_token)
   axios({
     method: "post",
     url: "https://accounts.spotify.com/api/token",
@@ -163,8 +162,32 @@ router.get("/refresh_token", (req, res) => {
       ).toString("base64")}`,
     },
   })
-    .then((response) => {
-      res.send(response.data);
+    .then((res) => {
+      if (res.status === 200) {
+        const updateTokens = async () => {
+          try {
+            const { access_token, refresh_token, expires_in } = res.data;
+            const found = await SpotifyAcc.findOne({ access_token });
+            if (found) {
+              await SpotifyAcc.findOneAndUpdate(
+                { access_token },
+                {
+                  accessToken: access_token,
+                  refreshToken: refresh_token,
+                  expiresIn: expires_in,
+                  timeStamp: Date.now(),
+                }
+              );
+            }
+          } catch (err) {
+            next(err);
+          }
+        };
+        updateTokens();
+        res.send(res.data);
+      } else {
+        console.log("no user found");
+      }
     })
     .catch((error) => {
       res.send(error);
@@ -200,10 +223,10 @@ router.post("/tokens", jwt.verifyJWT, async (req, res, next) => {
 router.delete("/tokens", jwt.verifyJWT, async (req, res, next) => {
   try {
     const userId = req.userId;
-    await SpotifyAcc.findOneAndDelete({userId})
+    await SpotifyAcc.findOneAndDelete({ userId });
     res.status(200).json("deleted");
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 module.exports = router;

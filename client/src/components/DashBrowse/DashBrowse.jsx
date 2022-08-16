@@ -17,7 +17,6 @@ export const DashBrowse = () => {
     if (!search) return setSearchResults([]);
     const searchSong = async () => {
         const results = await searchSpotify(search)
-        console.log(results.data.tracks.items)
         setSearchResults(results.data.tracks.items)
     }
     searchSong()

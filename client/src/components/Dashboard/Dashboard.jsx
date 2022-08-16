@@ -7,6 +7,8 @@ import { Nav } from "../Nav/Nav";
 import "./dashBoard.css";
 import axios from "axios";
 import { DashBrowse } from "../DashBrowse/DashBrowse";
+import { Merge } from "../Merge/Merge";
+import { MergeProvider } from "../../context/MergeContext";
 
 export const Dashboard = () => {
   const [activeView, setActiveView] = useState("home");
@@ -15,35 +17,38 @@ export const Dashboard = () => {
   useEffect(() => {
     const getSpotifyToken = async () => {
       const token = await getSpotifyTokens();
-      setSpotifyToken(token)
+      setSpotifyToken(token);
     };
-    getSpotifyToken()
+    getSpotifyToken();
   }, []);
 
   return (
-    <div className="dashboard">
-      {spotifyToken ? (
-        <>
-          <div className="dashboard-main">
-            <div className="dashboard-nav">
-              <Nav activeView={activeView} setActiveView={setActiveView} />
+    <MergeProvider>
+      <div className="dashboard">
+        {spotifyToken ? (
+          <>
+            <div className="dashboard-main">
+              <div className="dashboard-nav">
+                <Nav activeView={activeView} setActiveView={setActiveView} />
+              </div>
+              <div className="dashboard-right">
+                {activeView === "home" ? <DashHome /> : <></>}
+                {activeView === "browse" ? <DashBrowse /> : <></>}
+                {activeView === "merge" ? <Merge /> : <></>}
+              </div>
             </div>
-            <div className="dashboard-right">
-              {activeView === "home" ? <DashHome /> : <></>}
-              {activeView === "browse" ? <DashBrowse /> : <></>}
+          </>
+        ) : (
+          <>
+            <div className="spotify-login">
+              <a href={`${process.env.REACT_APP_SERVER}/spotify/spotify-login`}>
+                <button>connect to spotify</button>
+              </a>
+              <span>connect with spotify to use music merge</span>
             </div>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="spotify-login">
-            <a href={`${process.env.REACT_APP_SERVER}/spotify/spotify-login`}>
-              <button>connect to spotify</button>
-            </a>
-            <span>connect with spotify to use music merge</span>
-          </div>
-        </>
-      )}
-    </div>
+          </>
+        )}
+      </div>
+    </MergeProvider>
   );
 };

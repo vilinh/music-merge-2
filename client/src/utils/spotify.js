@@ -1,10 +1,9 @@
 import axios from "axios";
 
-const tokenExpired = (timeStamp, expiresIn) => {
-  const millisecondsElapsed = Date.now() - Date.parse(timeStamp);
-  console.log(millisecondsElapsed / 1000 > Number(expiresIn))
-  console.log((Date.now()-Date.parse(timeStamp))/1000, expiresIn)
-  return millisecondsElapsed / 1000 < Number(expiresIn);
+const hasTokenExpired = (timeStamp, expiresIn) => {
+  const time = new Date(timeStamp);
+  const timeElapsed = Date.now() - time.getTime();
+  return timeElapsed / 1000 > Number(expiresIn);
 };
 
 const refreshTokens = async (refreshToken) => {
@@ -12,7 +11,7 @@ const refreshTokens = async (refreshToken) => {
     `/spotify/refresh_token?refresh_token=${refreshToken}`
   );
 
-  console.log(data);
+  console.log("refresh attempted");
   // window.location.reload();
 };
 
@@ -37,10 +36,7 @@ export const getSpotifyTokens = async () => {
   });
   const { accessToken, refreshToken, expiresIn, timeStamp } = data;
 
-  console.log(refreshToken);
-
-  if (tokenExpired(timeStamp, expiresIn) || !accessToken) {
-    console.log("expired")
+  if (hasTokenExpired(timeStamp, expiresIn) || !accessToken) {
     await refreshTokens(refreshToken);
   }
   return accessToken;
@@ -53,8 +49,6 @@ base.defaults.headers["Content-Type"] = "application/json";
 
 export const getPlaylist = async (playlistId) => {
   const accessToken = await getSpotifyTokens();
-
-  console.log(accessToken);
   return base.get(`/playlists/${playlistId}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -73,10 +67,25 @@ export const getRecentlyPlayed = async () => {
 
 export const searchSpotify = async (entry) => {
   const accessToken = await getSpotifyTokens();
-  console.log(accessToken)
   return base.get(`/search?q=${entry}&type=track`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
   });
+};
+
+export const getSpotifyPlaylists = async () => {
+  const accessToken = await getSpotifyTokens();
+  return base.get(`/me/playlists?limit=20`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+export const addSongstoPlaylist = async (songs, playlistId) => {
+  const accessToken = await getSpotifyTokens();
+  console.log(songs);
+  base.defaults.headers.Authorization = `Bearer ${accessToken}`;
+  return base.post(`/playlists/${playlistId}/tracks?uris=${songs}`);
 };
