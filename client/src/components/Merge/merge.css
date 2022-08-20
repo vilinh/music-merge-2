@@ -51,14 +51,28 @@
     color: var(--txt-med);
     font-size: .9em;
   }
+
+  .merge .buttons {
+    display: flex;
+    gap: 10px;
+  }
   
-  .merge .addToSpotify {
+  .merge .buttons > button{
     font-size: .9em;
     background-color: var(--txt-dark);
     color: var(--white);
     border-radius: 5px;
     padding: 10px;
     margin-top: 10px;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .merge .buttons .clearQueue {
+    background-color: red;
   }
   
   .merge .addtoSpotify .disabled {

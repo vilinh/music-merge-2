@@ -8,6 +8,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { FaRegTrashAlt } from "react-icons/fa";
+
 import {
   addSongstoPlaylist,
   getSpotifyPlaylists,
@@ -168,12 +170,17 @@ export const Merge = () => {
       </div>
       <div className="add"></div>
       {mergeList.length > 0 ? (
-        <button
-          className={`addToSpotify ${!spotifyPlaylistID ? "disabled" : ""}`}
-          onClick={() => addToSpotify()}
-        >
-          add to <FontAwesomeIcon icon={faSpotify} />
-        </button>
+        <div className="buttons">
+          <button
+            className={`addToSpotify ${!spotifyPlaylistID ? "disabled" : ""}`}
+            onClick={() => addToSpotify()}
+          >
+            add to <FontAwesomeIcon icon={faSpotify} />
+          </button>
+          <button className={"clearQueue"} onClick={() => clearMerge()}>
+            <FaRegTrashAlt />
+          </button>
+        </div>
       ) : (
         <></>
       )}
