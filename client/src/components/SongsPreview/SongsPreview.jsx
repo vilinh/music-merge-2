@@ -21,7 +21,7 @@ export const SongsPreview = ({ playlistId }) => {
 
   return (
     <div className="songsPreview">
-      {playlist ? (
+      {tracks.length > 0 ? (
         <>
           <div className="header">
             <h3>{playlist && playlist.name}</h3>
