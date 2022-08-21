@@ -1,0 +1,53 @@
+.account-page {
+  height: 100vh;
+  display: flex;
+}
+
+.account-sidebar {
+  display: flex;
+  flex-direction: column;
+  flex: 1.4;
+  justify-content: center;
+  gap: 5px;
+  height: 100%;
+  padding: 30px 10px;
+  border-right: 1px solid var(--lighter-border);
+  background-color: var(--lighter-border);
+  color: var(--txt-dark);
+}
+
+.account-sidebar .subheading {
+  font-size: 0.8em;
+  margin: 10px 0px;
+  color: var(--txt-med);
+}
+
+.account-sidebar span {
+  font-size: 0.9em;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.account-sidebar .link {
+  padding: 6px 5px;
+  border-radius: 5px;
+}
+
+.account-sidebar .active {
+  background-color: var(--mid-border);
+}
+
+.account-main {
+  flex: 8;
+  padding: 30px;
+  color: var(--txt-dark);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.account-main .overlay {
+  background-color: black;
+  opacity: 80%;
+  padding: 0;
+}

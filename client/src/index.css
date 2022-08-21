@@ -11,6 +11,10 @@ a {
   margin: 0;
 }
 
+button {
+  border: none;
+}
+
 :root {
   --txt-med: #667da6;
   --txt-light: #b3c1d8;
