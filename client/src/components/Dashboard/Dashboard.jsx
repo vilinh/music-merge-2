@@ -9,6 +9,7 @@ import axios from "axios";
 import { DashBrowse } from "../DashBrowse/DashBrowse";
 import { Merge } from "../Merge/Merge";
 import { MergeProvider } from "../../context/MergeContext";
+import { DashArtists } from "../DashArtists/DashArtists";
 
 export const Dashboard = () => {
   const [activeView, setActiveView] = useState("home");
@@ -35,6 +36,7 @@ export const Dashboard = () => {
                 {activeView === "home" ? <DashHome /> : <></>}
                 {activeView === "browse" ? <DashBrowse /> : <></>}
                 {activeView === "merge" ? <Merge /> : <></>}
+                {activeView === "artists" ? <DashArtists /> : <></>}
               </div>
             </div>
           </>

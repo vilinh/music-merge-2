@@ -1,0 +1,38 @@
+.dashArtists {
+  padding: 30px;
+  height: 100vh;
+  width: 100%;
+  font-size: 0.9em;
+  position: relative;
+}
+
+.dashArtists h3 {
+  color: var(--txt-dark);
+  margin-bottom: 30px;
+}
+
+.dashArtists .artists {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.dashArtists .loader {
+  text-align: center;
+  font-size: 4em;
+  color: var(--txt-med);
+}
+
+.dashArtists .load {
+  height: 80vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.artist-modal {
+  position: absolute;
+  top: 10%;
+  left: 35%;
+}

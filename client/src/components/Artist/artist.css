@@ -1,0 +1,41 @@
+.artist-panel {
+  background-color: var(--white);
+  padding: 20px;
+  color: var(--txt-dark);
+  width: 700px;
+  border-radius: 10px;
+  border: 1px solid var(--light-border);
+  box-shadow: 5px 5px 5px var(--light-border);
+}
+
+.artist-panel .banner {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.artist-panel .banner img {
+  width: 100px;
+  border-radius: 100px;
+}
+
+.artist-panel .banner > h2 {
+  margin: 0;
+}
+
+.top-tracks {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  gap: 10px;
+  background-color: rgb(222, 230, 240);
+  padding: 20px;
+  border-radius: 5px;
+  height: 400px;
+  overflow: auto;
+}
+
+.top-tracks .loader > FontAwesomeIcon {
+    font-size: 1.2em;
+}

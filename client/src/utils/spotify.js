@@ -85,7 +85,24 @@ export const getSpotifyPlaylists = async () => {
 
 export const addSongstoPlaylist = async (songs, playlistId) => {
   const accessToken = await getSpotifyTokens();
-  console.log(songs);
   base.defaults.headers.Authorization = `Bearer ${accessToken}`;
   return base.post(`/playlists/${playlistId}/tracks?uris=${songs}`);
 };
+
+export const getFollowedArtists = async () => {
+  const accessToken = await getSpotifyTokens();
+  return base.get(`/me/following?type=artist`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+}
+
+export const getArtistTopTracks = async (artistId) => {
+  const accessToken = await getSpotifyTokens();
+  return base.get(`/artists/${artistId}/top-tracks?market=US`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+}

@@ -39,7 +39,6 @@ export const Merge = () => {
   useEffect(() => {
     const getUserPlaylists = async () => {
       const playlists = await getSpotifyPlaylists();
-      console.log(playlists.data.items);
       setSpotifyPlaylists(playlists.data.items);
     };
     getUserPlaylists();
@@ -67,7 +66,6 @@ export const Merge = () => {
           addSongtoMerge(res.data.tracks.items[0]);
         });
       });
-      console.log(mergeList);
     };
     searchSpotifyforDeezer();
   }, [playlist]);
@@ -94,7 +92,6 @@ export const Merge = () => {
       setPlaylist(deezerSongs);
     };
     getDeezerSongs();
-    console.log(playlist);
     setPlaylistID("");
   };
 
@@ -104,7 +101,6 @@ export const Merge = () => {
 
   const addToSpotify = async (songs) => {
     let trackIDs = mergeList.map((song) => `spotify:track:${song.id}`);
-    console.log(spotifyPlaylistID);
     await addSongstoPlaylist(trackIDs, spotifyPlaylistID)
       .then(() => {
         setAddNotif(true);

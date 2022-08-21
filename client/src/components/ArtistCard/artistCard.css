@@ -1,0 +1,33 @@
+.artistCard {
+  padding: 20px;
+  border: 1px solid var(--light-border);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: var(--txt-dark);
+  gap: 10px;
+  transition: 0.15s ease-in;
+  position: relative;
+}
+
+.artistCard:hover {
+  cursor: pointer;
+  background-color: var(--light-border);
+}
+
+.artistCard img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 100px;
+}
+
+.artist-panel .close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 0.8em;
+  cursor: pointer;
+  color: var(--light-border);
+}
