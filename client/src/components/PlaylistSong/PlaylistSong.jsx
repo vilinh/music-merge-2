@@ -20,6 +20,18 @@ export const PlaylistSong = ({ song, idx }) => {
     mergeList.map((element) => element.id).includes(song.id) && setAdded(true);
   }, []);
 
+  const padTo2Digits = (num) => {
+    return num.toString().padStart(2, "0");
+  };
+
+  const convertMsToTime = (milliseconds) => {
+    let seconds = Math.floor(milliseconds / 1000);
+    let minutes = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    minutes = minutes % 60;
+    return `${minutes}:${padTo2Digits(seconds)}`;
+  };
+
   return (
     <div className="playlistSong">
       <div className="left">
@@ -31,7 +43,7 @@ export const PlaylistSong = ({ song, idx }) => {
         </div>
       </div>
       <div className="right">
-        <span id="time">3:00</span>
+        <span id="time">{convertMsToTime(song.duration_ms)}</span>
         <FontAwesomeIcon id="play" icon={faCirclePlay} />
         <FontAwesomeIcon
           id="add"
