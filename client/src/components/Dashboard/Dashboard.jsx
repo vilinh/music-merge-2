@@ -11,6 +11,7 @@ import { Merge } from "../Merge/Merge";
 import { MergeProvider } from "../../context/MergeContext";
 import { DashArtists } from "../DashArtists/DashArtists";
 import { Account } from "../Account/Account";
+import { EditProfile } from "../EditProfile/EditProfile";
 
 export const Dashboard = () => {
   const [activeView, setActiveView] = useState("home");

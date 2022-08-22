@@ -12,3 +12,19 @@ router.get("/user", jwtoken.verifyJWT, async (req, res, next) => {
     next(error);
   }
 });
+
+router.put("/email", jwtoken.verifyJWT, async (req, res, next) => {
+  try {
+    const userId = req.userId;
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+    res.status(200).json("user has been updated");
+  } catch (err) {
+    throw err;
+  }
+});

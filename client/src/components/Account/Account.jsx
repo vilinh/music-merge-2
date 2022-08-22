@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { EditProfile } from "../EditProfile/EditProfile";
 import { MyAccount } from "../MyAccount/MyAccount";
 import "./account.css";
 
@@ -38,6 +39,7 @@ export const Account = () => {
         ) : (
           <></>
         )}
+        {activeView === "edit" ? <EditProfile /> : <></>}
       </div>
     </div>
   );
