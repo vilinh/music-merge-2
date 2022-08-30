@@ -35,7 +35,7 @@ export const updateEmail = (email) => {
     .catch((err) => console.log(err));
 };
 
-export const getUserInfo = async () => {
+export const getUserId = async () => {
   const { data } = await axios.get(`http://localhost:8800/user/info`, {
     headers: {
       "x-access-token": localStorage.getItem("token"),
@@ -52,3 +52,13 @@ export const getUserName = async () => {
   });
   return data.username
 };
+
+export const getEmail = async () => {
+  const { data } = await axios.get(`http://localhost:8800/user/info`, {
+    headers: {
+      "x-access-token": localStorage.getItem("token"),
+    },
+  });
+  return data.email
+};
+

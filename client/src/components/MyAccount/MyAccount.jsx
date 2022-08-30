@@ -1,7 +1,7 @@
 import React from "react";
 import "./myAccount.css";
 
-export const MyAccount = ({ setActiveView, username }) => {
+export const MyAccount = ({ setActiveView, username, email, birthday }) => {
   return (
     <div className="account">
       <h3>My Account</h3>
@@ -18,11 +18,7 @@ export const MyAccount = ({ setActiveView, username }) => {
             </div>
             <div className="account-field email">
               <span className="label">EMAIL</span>
-              <span className="field">vvkatt@gmail.com</span>
-            </div>
-            <div className="account-field birthday">
-              <span className="label">BIRTHDAY</span>
-              <span className="field">june 6, 2003</span>
+              <span className="field">{email}</span>
             </div>
           </div>
         </div>

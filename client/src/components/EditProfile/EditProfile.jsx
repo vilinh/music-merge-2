@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import "./editProfile.css";
-import { getUserInfo, getUserName, updateEmail } from "../../utils/user";
 
-export const EditProfile = ({username}) => {
-  const [email, setEmail] = useState("");
-  const [birthday, setBirthday] = useState(null);
+export const EditProfile = ({ username, email }) => {
+  const [emailInput, setEmailInput] = useState("");
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   const changeEmail = async () => {
-    await updateEmail(email).then(() => console.log("ftonendresponse"));
+    await updateEmail(emailInput).then(() => console.log("ftonendresponse"));
   };
 
   const updateEmail = async () => {};
@@ -27,17 +24,17 @@ export const EditProfile = ({username}) => {
           <h4>email</h4>
           <input
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={emailInput}
+            placeholder={email}
+            onChange={(e) => setEmailInput(e.target.value)}
           />
-          <h4>birthday</h4>
-          <input type="date" onChange={(e) => setBirthday(e.target.value)} />
+
           <button
             className="save"
             onClick={(e) => {
-              changeEmail(email);
+              changeEmail(emailInput);
               e.preventDefault();
-              setEmail("");
+              setEmailInput("");
             }}
           >
             save changes

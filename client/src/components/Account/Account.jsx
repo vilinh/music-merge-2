@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { getUserName } from "../../utils/user";
+import { getBirthday, getEmail, getUserName } from "../../utils/user";
 import { EditProfile } from "../EditProfile/EditProfile";
 import { MyAccount } from "../MyAccount/MyAccount";
 import "./account.css";
@@ -9,12 +9,14 @@ import "./account.css";
 export const Account = () => {
   const [activeView, setActiveView] = useState("account");
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
-    const getName = async () => {
+    const getInfo = async () => {
       await getUserName().then((res) => setName(res));
+      await getEmail().then((res) => setEmail(res));
     };
-    getName();
+    getInfo();
   }, []);
 
   return (
@@ -45,11 +47,19 @@ export const Account = () => {
       </div>
       <div className="account-main">
         {activeView === "account" ? (
-          <MyAccount username={name} setActiveView={setActiveView} />
+          <MyAccount
+            username={name}
+            email={email}
+            setActiveView={setActiveView}
+          />
         ) : (
           <></>
         )}
-        {activeView === "edit" ? <EditProfile username={name} /> : <></>}
+        {activeView === "edit" ? (
+          <EditProfile username={name} email={email} />
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
