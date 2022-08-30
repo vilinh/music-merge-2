@@ -36,6 +36,10 @@
   padding: 20px;
 }
 
+.edit-profile form h4 {
+  margin-top: 10px;
+}
+
 .edit > input {
   padding: 15px;
   border-radius: 5px;

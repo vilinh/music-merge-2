@@ -4,6 +4,8 @@ import "./editProfile.css";
 
 export const EditProfile = ({ username, email }) => {
   const [emailInput, setEmailInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
 
   useEffect(() => {}, []);
 
@@ -27,6 +29,19 @@ export const EditProfile = ({ username, email }) => {
             value={emailInput}
             placeholder={email}
             onChange={(e) => setEmailInput(e.target.value)}
+          />
+          <h4>password</h4>
+          <input
+            type="password"
+            placeholder="old password"
+            value={oldPassword}
+            onChange={(e) => setOldPassword(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="new password"
+            value={passwordInput}
+            onChange={(e) => setPasswordInput(e.target.value)}
           />
 
           <button
