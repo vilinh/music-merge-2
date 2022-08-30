@@ -20,10 +20,6 @@ export const DashArtists = () => {
     getArtists();
   }, []);
 
-  useEffect(() => {
-    console.log(clickedArtist)
-  }, [clickedArtist])
-
   return (
     <>
       <div className="dashArtists">

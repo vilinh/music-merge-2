@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import "./editProfile.css";
-import { updateEmail } from "../../utils/user";
+import { getUserInfo, getUserName, updateEmail } from "../../utils/user";
 
-export const EditProfile = () => {
+export const EditProfile = ({username}) => {
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState(null);
 
   useEffect(() => {
-    console.log(birthday);
-  }, [birthday]);
+  }, []);
 
   const changeEmail = async () => {
-    await updateEmail().then(() => console.log("ftonendresponse"));
-  }
+    await updateEmail(email).then(() => console.log("ftonendresponse"));
+  };
 
   const updateEmail = async () => {};
   return (
@@ -21,7 +20,7 @@ export const EditProfile = () => {
       <h3>Edit Profile</h3>
       <div className="pic">
         <img src="https://i.scdn.co/image/ab6775700000ee850e227e40152a057cad6fdf16" />
-        <h4>name</h4>
+        <h4>{username}</h4>
       </div>
       <div className="form">
         <form action="" className="edit">

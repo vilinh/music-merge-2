@@ -1,11 +1,21 @@
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
+import { getUserName } from "../../utils/user";
 import { EditProfile } from "../EditProfile/EditProfile";
 import { MyAccount } from "../MyAccount/MyAccount";
 import "./account.css";
 
 export const Account = () => {
   const [activeView, setActiveView] = useState("account");
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    const getName = async () => {
+      await getUserName().then((res) => setName(res));
+    };
+    getName();
+  }, []);
 
   return (
     <div className="account-page">
@@ -35,11 +45,11 @@ export const Account = () => {
       </div>
       <div className="account-main">
         {activeView === "account" ? (
-          <MyAccount setActiveView={setActiveView} />
+          <MyAccount username={name} setActiveView={setActiveView} />
         ) : (
           <></>
         )}
-        {activeView === "edit" ? <EditProfile /> : <></>}
+        {activeView === "edit" ? <EditProfile username={name} /> : <></>}
       </div>
     </div>
   );

@@ -25,6 +25,7 @@
 .edit-profile .pic img {
   width: 100px;
   border-radius: 80px;
+  margin-bottom: 10px;
 }
 
 .edit-profile form {

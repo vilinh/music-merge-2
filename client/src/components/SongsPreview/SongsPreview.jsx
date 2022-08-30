@@ -16,7 +16,7 @@ export const SongsPreview = ({ playlistId }) => {
       setPlaylist(playlistData.data)
       setTracks(playlistData.data.tracks.items.slice(0,5))
     }
-    getPlaylistData(playlistId)
+    getPlaylistData(playlistId);
   }, [playlistId]);
 
   return (

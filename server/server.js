@@ -14,9 +14,11 @@ app.use(express.json());
 const User = require("./models/Users");
 const spotifyRouter = require("./routes/spotify");
 const deezerRouter = require("./routes/deezer");
+const userRouter = require("./routes/user");
 
 app.use("/spotify", spotifyRouter);
 app.use("/deezer", deezerRouter);
+app.use("/user", userRouter);
 
 const connectDB = async () => {
   try {

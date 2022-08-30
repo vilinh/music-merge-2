@@ -134,7 +134,7 @@ export const Merge = () => {
               onChange={handleSelect}
             >
               {spotifyPlaylists.map((playlist) => (
-                <MenuItem id={playlist.id} value={playlist.id}>
+                <MenuItem key={playlist.id} id={playlist.id} value={playlist.id}>
                   {playlist.name}
                 </MenuItem>
               ))}

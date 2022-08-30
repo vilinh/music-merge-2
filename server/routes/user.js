@@ -13,6 +13,16 @@ router.get("/user", jwtoken.verifyJWT, async (req, res, next) => {
   }
 });
 
+router.get("/info", jwtoken.verifyJWT, async (req, res, next) => {
+  try {
+    const userId = req.userId;
+    const user = await Users.findById(userId);
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.put("/email", jwtoken.verifyJWT, async (req, res, next) => {
   try {
     const userId = req.userId;
@@ -28,3 +38,5 @@ router.put("/email", jwtoken.verifyJWT, async (req, res, next) => {
     throw err;
   }
 });
+
+module.exports = router;

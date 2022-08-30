@@ -1,4 +1,5 @@
 import axios from "axios";
+import { removeSpotifyTokens } from "./spotify";
 
 export const login = (username, password) => {
   return axios.post("/spotify/login", {
@@ -17,11 +18,37 @@ export const register = (username, password, email) => {
 
 export const updateEmail = (email) => {
   axios
-    .put(`http://localhost:8800/api/users/${localStorage.getItem("id")}`, {
-      email: email,
-    })
+    .put(
+      `http://localhost:8800/user/email`,
+      {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      },
+      {
+        email: email,
+      }
+    )
     .then(() => {
       console.log("email updated");
     })
     .catch((err) => console.log(err));
+};
+
+export const getUserInfo = async () => {
+  const { data } = await axios.get(`http://localhost:8800/user/info`, {
+    headers: {
+      "x-access-token": localStorage.getItem("token"),
+    },
+  });
+  return data._id
+};
+
+export const getUserName = async () => {
+  const { data } = await axios.get(`http://localhost:8800/user/info`, {
+    headers: {
+      "x-access-token": localStorage.getItem("token"),
+    },
+  });
+  return data.username
 };
