@@ -35,7 +35,6 @@ export const Account = () => {
         >
           profile
         </span>
-        <span className="link">change password</span>
         <span
           className={`link ` + (activeView === "connections" ? "active" : "")}
           onClick={() => setActiveView("connections")}

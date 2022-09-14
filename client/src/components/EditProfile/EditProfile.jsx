@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { changeEmail } from "../../utils/user";
 import "./editProfile.css";
 
 export const EditProfile = ({ username, email }) => {
@@ -9,11 +10,10 @@ export const EditProfile = ({ username, email }) => {
 
   useEffect(() => {}, []);
 
-  const changeEmail = async () => {
-    await updateEmail(emailInput).then(() => console.log("ftonendresponse"));
+  const handleSave = async (e) => {
+    await changeEmail(emailInput).then(() => setEmailInput(""))
   };
 
-  const updateEmail = async () => {};
   return (
     <div className="edit-profile">
       <h3>Edit Profile</h3>
@@ -47,9 +47,7 @@ export const EditProfile = ({ username, email }) => {
           <button
             className="save"
             onClick={(e) => {
-              changeEmail(emailInput);
-              e.preventDefault();
-              setEmailInput("");
+              handleSave(e);
             }}
           >
             save changes

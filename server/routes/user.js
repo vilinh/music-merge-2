@@ -26,7 +26,7 @@ router.get("/info", jwtoken.verifyJWT, async (req, res, next) => {
 router.put("/email", jwtoken.verifyJWT, async (req, res, next) => {
   try {
     const userId = req.userId;
-    const updatedUser = await User.findByIdAndUpdate(
+    const updatedUser = await Users.findByIdAndUpdate(
       userId,
       {
         $set: req.body,

@@ -146,52 +146,8 @@ router.get("/callback", (req, res, next) => {
     });
 });
 
-router.get("/refresh_token", (req, res) => {
+router.get("/refresh_token", async (req, res) => {
   const { refresh_token } = req.query;
-  axios({
-    method: "post",
-    url: "https://accounts.spotify.com/api/token",
-    data: querystring.stringify({
-      grant_type: "refresh_token",
-      refresh_token: refresh_token,
-    }),
-    headers: {
-      "content-type": "application/x-www-form-urlencoded",
-      Authorization: `Basic ${new Buffer.from(
-        `${CLIENT_ID}:${CLIENT_SECRET}`
-      ).toString("base64")}`,
-    },
-  })
-    .then((res) => {
-      if (res.status === 200) {
-        const updateTokens = async () => {
-          try {
-            const { access_token, refresh_token, expires_in } = res.data;
-            const found = await SpotifyAcc.findOne({ access_token });
-            if (found) {
-              await SpotifyAcc.findOneAndUpdate(
-                { access_token },
-                {
-                  accessToken: access_token,
-                  refreshToken: refresh_token,
-                  expiresIn: expires_in,
-                  timeStamp: Date.now(),
-                }
-              );
-            }
-          } catch (err) {
-            next(err);
-          }
-        };
-        updateTokens();
-        res.send(res.data);
-      } else {
-        console.log("no user found");
-      }
-    })
-    .catch((error) => {
-      res.send(error);
-    });
 });
 
 router.get("/tokens", jwt.verifyJWT, async (req, res, next) => {

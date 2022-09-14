@@ -16,23 +16,15 @@ export const register = (username, password, email) => {
   });
 };
 
-export const updateEmail = (email) => {
-  axios
-    .put(
-      `http://localhost:8800/user/email`,
-      {
-        headers: {
-          "x-access-token": localStorage.getItem("token"),
-        },
-      },
-      {
-        email: email,
-      }
-    )
-    .then(() => {
-      console.log("email updated");
-    })
-    .catch((err) => console.log(err));
+export const changeEmail = async (newEmail) => {
+  await axios({
+    method: "put",
+    url: "http://localhost:8800/user/email",
+    headers: { "x-access-token": localStorage.getItem("token") },
+    data: {
+      email: newEmail, 
+    },
+  });
 };
 
 export const getUserId = async () => {
@@ -41,7 +33,7 @@ export const getUserId = async () => {
       "x-access-token": localStorage.getItem("token"),
     },
   });
-  return data._id
+  return data._id;
 };
 
 export const getUserName = async () => {
@@ -50,7 +42,7 @@ export const getUserName = async () => {
       "x-access-token": localStorage.getItem("token"),
     },
   });
-  return data.username
+  return data.username;
 };
 
 export const getEmail = async () => {
@@ -59,6 +51,5 @@ export const getEmail = async () => {
       "x-access-token": localStorage.getItem("token"),
     },
   });
-  return data.email
+  return data.email;
 };
-

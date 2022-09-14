@@ -10,6 +10,11 @@ const refreshTokens = async (refreshToken) => {
   const { data } = await axios.get(
     `/spotify/refresh_token?refresh_token=${refreshToken}`
   );
+  console.log(data.access_token);
+
+  // await axios.post('/spotify/tokens', {
+  //   accessToken: data.access_token
+  // })
 
   console.log("refresh attempted");
   // window.location.reload();
@@ -35,6 +40,8 @@ export const getSpotifyTokens = async () => {
     },
   });
   const { accessToken, refreshToken, expiresIn, timeStamp } = data;
+
+  console.log(refreshToken)
 
   if (hasTokenExpired(timeStamp, expiresIn) || !accessToken) {
     await refreshTokens(refreshToken);
@@ -95,8 +102,8 @@ export const getFollowedArtists = async () => {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
-  })
-}
+  });
+};
 
 export const getArtistTopTracks = async (artistId) => {
   const accessToken = await getSpotifyTokens();
@@ -104,5 +111,5 @@ export const getArtistTopTracks = async (artistId) => {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
-  })
-}
+  });
+};
