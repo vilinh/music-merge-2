@@ -17,7 +17,7 @@ An application that allows users to "merge" their playlists from other online st
 - MongoDB
 
 ## Features
-- [x] User account creation and login
+- [x] User account creation and login + (encrypted in database)
 - [x] Allow users to connect Spotify Account and search for songs to add to their Spotify playlist
 - [x] Allow users to import songs from Deezer playlist and add to their Spotify playlist
 - [x] Merge page where users can view songs to be merged and remove songs from queue, and merge to selected playlist
